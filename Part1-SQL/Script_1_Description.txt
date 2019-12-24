@@ -1,0 +1,2 @@
+Create a script that will add an attribute of type 'Weight' and with a value set to 'Thin' to all employees. 
+If an employee already has a 'Weight' attribute, update that attribute, otherwise create a new one. 

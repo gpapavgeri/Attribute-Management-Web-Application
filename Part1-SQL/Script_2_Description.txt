@@ -1,0 +1,2 @@
+Create a script that will add an attribute of type 'Height' and with a value set to 'Short' to all employees that are supervisors of anybody else. 
+If an employee already has a 'Height' attribute, update that attribute, otherwise create a new one. 
