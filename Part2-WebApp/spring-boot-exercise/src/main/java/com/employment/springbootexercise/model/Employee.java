@@ -1,73 +1,66 @@
 package com.employment.springbootexercise.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "employee")
 public class Employee implements Serializable {
 
     @Id
-    @Column(name = "EMP_ID")
-    private String emp_id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID empId;
 
-    @Column(name = "EMP_Name")
-    private String emp_name;
+    private String empName;
 
-    @Column(name = "EMP_DateOfHire")
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime emp_dateOfHire;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime empDateOfHire;
 
-    @Column(name = "EMP_Supervisor")
-    private String emp_supervisor;
+    private UUID empSupervisor;
 
-    public Employee(){
-
+    public Employee() {
     }
 
-    public Employee(String emp_id) {
-        this.emp_id = emp_id;
+    public Employee(String empName, LocalDateTime empDateOfHire, UUID empSupervisor) {
+        this.empName = empName;
+        this.empDateOfHire = empDateOfHire;
+        this.empSupervisor = empSupervisor;
     }
 
-    public Employee(String emp_id, String emp_name, LocalDateTime emp_dateOfHire, String emp_supervisor) {
-        this.emp_id = emp_id;
-        this.emp_name = emp_name;
-        this.emp_dateOfHire = emp_dateOfHire;
-        this.emp_supervisor = emp_supervisor;
+    public UUID getEmpId() {
+        return empId;
     }
 
-    public String getEmp_id() {
-        return emp_id;
+    public void setEmpId(UUID empId) {
+        this.empId = empId;
     }
 
-    public void setEmp_id(String emp_id) {
-        this.emp_id = emp_id;
+    public String getEmpName() {
+        return empName;
     }
 
-    public String getEmp_name() {
-        return emp_name;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
-    public void setEmp_name(String emp_name) {
-        this.emp_name = emp_name;
+    public LocalDateTime getEmpDateOfHire() {
+        return empDateOfHire;
     }
 
-    public LocalDateTime getEmp_dateOfHire() {
-        return emp_dateOfHire;
+    public void setEmpDateOfHire(LocalDateTime empDateOfHire) {
+        this.empDateOfHire = empDateOfHire;
     }
 
-    public void setEmp_dateOfHire(LocalDateTime emp_dateOfHire) {
-        this.emp_dateOfHire = emp_dateOfHire;
+    public UUID getEmpSupervisor() {
+        return empSupervisor;
     }
 
-    public String getEmp_supervisor() {
-        return emp_supervisor;
-    }
-
-    public void setEmp_supervisor(String emp_supervisor) {
-        this.emp_supervisor = emp_supervisor;
+    public void setEmpSupervisor(UUID empSupervisor) {
+        this.empSupervisor = empSupervisor;
     }
 }

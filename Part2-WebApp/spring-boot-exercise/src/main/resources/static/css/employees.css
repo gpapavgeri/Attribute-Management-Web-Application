@@ -1,0 +1,35 @@
+html,body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+
+#content {
+    width: 60%;
+    margin: auto;
+}
+
+h1 {
+    color: #009688;
+    border-bottom: 3px solid #00BCD4;
+    padding-bottom: 40px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+p {
+    margin-top: 20px;
+}
+
+P:last-child {
+    margin-bottom: 80px;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+
+
