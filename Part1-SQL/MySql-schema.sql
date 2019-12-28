@@ -1,18 +1,19 @@
 /****** Object:  Database [dbo] ******/
 CREATE DATABASE dbo;
+USE dbo;
 
 /****** Object:  Table [dbo].[Employee] ******/
 CREATE TABLE dbo.Employee(
-	EMP_ID CHAR(38) NOT NULL,
+	EMP_ID BINARY(16) NOT NULL,
 	EMP_Name VARCHAR(100) NOT NULL,
-	EMP_DateOfHire DATETIME NOT NULL,
-	EMP_Supervisor CHAR(38) NULL,
+	EMP_Date_Of_Hire TIMESTAMP NOT NULL,
+	EMP_Supervisor BINARY(16) NULL,
     CONSTRAINT PK_Employee PRIMARY KEY (EMP_ID)
     );
     
 /****** Object:  Table [dbo].[Attribute] ******/
 CREATE TABLE dbo.Attribute(
-	ATTR_ID CHAR(38) NOT NULL,
+	ATTR_ID BINARY(16) NOT NULL,
 	ATTR_Name VARCHAR(50) NOT NULL,
 	ATTR_Value VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Attribute PRIMARY KEY (ATTR_ID)
@@ -20,8 +21,8 @@ CREATE TABLE dbo.Attribute(
 
 /****** Object:  Table [dbo].[EmployeeAttribute] ******/
 CREATE TABLE dbo.EmployeeAttribute(
-	EMPATTR_EmployeeID CHAR(38) NOT NULL,
-	EMPATTR_AttributeID CHAR(38) NOT NULL,
+	EMPATTR_EmployeeID BINARY(16) NOT NULL,
+	EMPATTR_AttributeID BINARY(16) NOT NULL,
     CONSTRAINT PK_EmployeeAttribute PRIMARY KEY (EMPATTR_EmployeeID, EMPATTR_AttributeID)
 );
 
