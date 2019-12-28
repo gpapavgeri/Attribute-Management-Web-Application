@@ -25,12 +25,14 @@ public class Employee implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime empDateOfHire;
 
-    private UUID empSupervisor;
+    @ManyToOne
+    @JoinColumn(name="EMP_Supervisor")
+    private Employee empSupervisor;
 
     public Employee() {
     }
 
-    public Employee(String empName, LocalDateTime empDateOfHire, UUID empSupervisor) {
+    public Employee(String empName, LocalDateTime empDateOfHire, Employee empSupervisor) {
         this.empName = empName;
         this.empDateOfHire = empDateOfHire;
         this.empSupervisor = empSupervisor;
@@ -60,11 +62,9 @@ public class Employee implements Serializable {
         this.empDateOfHire = empDateOfHire;
     }
 
-    public UUID getEmpSupervisor() {
-        return empSupervisor;
-    }
+    public Employee getEmpSupervisor() { return empSupervisor; }
 
-    public void setEmpSupervisor(UUID empSupervisor) {
+    public void setEmpSupervisor(Employee empSupervisor) {
         this.empSupervisor = empSupervisor;
     }
 }

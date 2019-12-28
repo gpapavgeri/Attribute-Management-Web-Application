@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api")
@@ -28,10 +29,11 @@ public class RestEmployeeController {
         empService.insertEmployee(employee);
     }
 
-    // Get a single Employee
-    @GetMapping("/employees/{name}")
-    public Employee getEmployeeByName(@PathVariable(value="name") String name){
-        return empService.getEmployeeByName(name);
+    // Get a single Employee By ID
+    @GetMapping("/employees/{id}")
+    public Employee getEmployeeById(@PathVariable(value="id") String id){
+        UUID empId = UUID.fromString(id);
+        return empService.getEmployeeById(empId);
     }
 
     // Update an Employee

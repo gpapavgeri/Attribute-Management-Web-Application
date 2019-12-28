@@ -52,7 +52,7 @@
                         <c:out value="${employee.empDateOfHire}" />
                     </td>
                     <td>
-                        <c:out value="${employee.empSupervisor}" />
+                        <c:out value="${employee.empSupervisor.empName}" />
                     </td>
                     <td>
                         <button class = "btn-edit btn-warning btn" type = "button" data-employeeId = "${employee.empId}" data-toggle="modal">Edit</button>

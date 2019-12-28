@@ -36,7 +36,7 @@ public class EmployeeController {
         LocalDateTime dateTimeHire = convertStringDateToLocalDateTime(employeeDateOfHire);
         Employee supervisor = empService.getEmployeeByName(supervisorName);
 
-        Employee emp = new Employee(employeeName, dateTimeHire, supervisor.getEmpId());
+        Employee emp = new Employee(employeeName, dateTimeHire, supervisor);
         empService.insertEmployee(emp);
         return "redirect:/employees";
     }
@@ -61,7 +61,7 @@ public class EmployeeController {
         Employee employeeToEdit = empService.getEmployeeById(UUID.fromString(employeeId));
         employeeToEdit.setEmpName(employeeName);
         employeeToEdit.setEmpDateOfHire(dateTimeHire);
-        employeeToEdit.setEmpSupervisor(supervisor.getEmpId());
+        employeeToEdit.setEmpSupervisor(supervisor);
 
         empService.updateEmployee(employeeToEdit);
 

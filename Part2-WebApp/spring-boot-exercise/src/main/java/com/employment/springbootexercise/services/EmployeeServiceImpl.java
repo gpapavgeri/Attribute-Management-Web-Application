@@ -3,6 +3,7 @@ package com.employment.springbootexercise.services;
 import com.employment.springbootexercise.model.Employee;
 import com.employment.springbootexercise.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployees() {
-        List<Employee> employeesList = empRepo.findAll();
+        List<Employee> employeesList = empRepo.findAll(Sort.by(Sort.Direction.ASC, "empName"));
         return employeesList;
     }
 
