@@ -19,26 +19,12 @@ public class EmployeeController {
     @Autowired
     EmployeeService empService;
 
-    // Load all employees in jsp
+    // Load all employees
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getAllEmployees(ModelMap mm){
         List<Employee> employees = empService.getAllEmployees();
         mm.addAttribute("allEmployees", employees);
         return "viewPage";
-    }
-
-    // Load all employees in json
-    @RequestMapping(value = "/api/employees", method = RequestMethod.GET)
-    @ResponseBody
-    public Iterable<Employee> getAllEmployeesRest(){
-        return empService.getAllEmployees();
-    }
-
-    // Load employee by Id in json
-    @RequestMapping(value = "/api/employees/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Employee getEmployeeById(@PathVariable("id") UUID id){
-        return empService.getEmployeeById(id);
     }
 
     // Create employee
