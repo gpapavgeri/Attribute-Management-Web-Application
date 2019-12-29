@@ -1,6 +1,7 @@
 package com.employment.springbootexercise.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,7 +28,7 @@ public class Employee implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime empDateOfHire;
 
-    @JsonIgnore
+    @JsonProperty
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="EMP_Supervisor")
@@ -37,6 +38,14 @@ public class Employee implements Serializable {
             cascade= {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     private List<Employee> employeesToSupervise;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name="employeeattribute",
+            joinColumns = @JoinColumn(name="EMPATTR_EmployeeID"),
+            inverseJoinColumns = @JoinColumn(name="EMPATTR_AttributeID"))
+    private List<Attribute> attributes;
 
     public Employee() {
     }
@@ -65,6 +74,7 @@ public class Employee implements Serializable {
         this.empDateOfHire = empDateOfHire;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Employee getEmpSupervisor() { return empSupervisor; }
 
     public void setEmpSupervisor(Employee empSupervisor) {
@@ -75,8 +85,19 @@ public class Employee implements Serializable {
         return employeesToSupervise;
     }
 
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
     public void setEmployeesToSupervise(List<Employee> employeesToSupervise) {
         this.employeesToSupervise = employeesToSupervise;
+
+
+
     }
 
     @Override
