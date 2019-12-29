@@ -36,7 +36,7 @@ public class RestEmployeeController {
         return empService.getEmployeeById(empId);
     }
 
-    // Update an Employee
+    // Update an Employee By Name
     @PutMapping("/employees/{name}")
     public Employee updateEmployee(@PathVariable(value="name") String name,
                                    @Valid @RequestBody Employee employee) {
@@ -49,7 +49,7 @@ public class RestEmployeeController {
         return emp;
     }
 
-    // Delete an Employee
+    // Delete an Employee By Name
     @DeleteMapping("/employees/{name}")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable(value="name") String name){
         Employee employee = empService.getEmployeeByName(name);

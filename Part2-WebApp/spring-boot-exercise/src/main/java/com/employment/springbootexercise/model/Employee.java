@@ -1,5 +1,6 @@
 package com.employment.springbootexercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,17 +27,18 @@ public class Employee implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime empDateOfHire;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="EMP_Supervisor")
     private Employee empSupervisor;
 
-    public Employee() {
-    }
+    @OneToMany(mappedBy="empSupervisor",
+            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Employee> employeesToSupervise;
 
-    public Employee(String empName, LocalDateTime empDateOfHire, Employee empSupervisor) {
-        this.empName = empName;
-        this.empDateOfHire = empDateOfHire;
-        this.empSupervisor = empSupervisor;
+    public Employee() {
     }
 
     public UUID getEmpId() {
@@ -66,5 +69,19 @@ public class Employee implements Serializable {
 
     public void setEmpSupervisor(Employee empSupervisor) {
         this.empSupervisor = empSupervisor;
+    }
+
+    public List<Employee> getEmployeesToSupervise() {
+        return employeesToSupervise;
+    }
+
+    public void setEmployeesToSupervise(List<Employee> employeesToSupervise) {
+        this.employeesToSupervise = employeesToSupervise;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "empName= " + empName + '\'';
     }
 }

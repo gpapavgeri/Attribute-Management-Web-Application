@@ -134,7 +134,6 @@
                                 <div class="form-group">
                                     <label for = "supervisor-edit">Supervisor</label>
                                     <br>
-                                    <%--<input type = "hidden" id = "supervisorId-edit" name = "supervisorId-edit" />--%>
                                     <select id = "supervisor-edit" name = "supervisor-edit">
                                     </select>
                                 </div>

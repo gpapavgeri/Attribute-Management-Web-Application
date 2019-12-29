@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,15 +37,19 @@ public class EmployeeController {
         LocalDateTime dateTimeHire = convertStringDateToLocalDateTime(employeeDateOfHire);
         Employee supervisor = empService.getEmployeeByName(supervisorName);
 
-        Employee emp = new Employee(employeeName, dateTimeHire, supervisor);
-        empService.insertEmployee(emp);
+        Employee employeeToCreate = new Employee();
+        employeeToCreate.setEmpName(employeeName);
+        employeeToCreate.setEmpDateOfHire(dateTimeHire);
+        employeeToCreate.setEmpSupervisor(supervisor);
+        empService.insertEmployee(employeeToCreate);
         return "redirect:/employees";
     }
 
     // Delete employee
-    @RequestMapping(value = "/employee/delete", method = RequestMethod.POST)
-    public String deleteEmployee(@RequestParam("employeeId") UUID employeeId){
-        empService.deleteEmployeeById(employeeId);
+    @RequestMapping(value = "/employees/delete", method = RequestMethod.POST)
+    public String deleteEmployee(@RequestParam("employeeId") String employeeId){
+        UUID empId = UUID.fromString(employeeId);
+        empService.deleteEmployeeById(empId);
         return "redirect:/employees";
     }
 
@@ -62,7 +67,6 @@ public class EmployeeController {
         employeeToEdit.setEmpName(employeeName);
         employeeToEdit.setEmpDateOfHire(dateTimeHire);
         employeeToEdit.setEmpSupervisor(supervisor);
-
         empService.updateEmployee(employeeToEdit);
 
         return "redirect:/employees";
@@ -75,7 +79,6 @@ public class EmployeeController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfHire = LocalDate.parse(inputDate, formatter);
         LocalDateTime dateTimeHire = dateOfHire.atStartOfDay();
-        System.out.println("newDate of Hire is: " + dateTimeHire);
 
         return dateTimeHire;
     }

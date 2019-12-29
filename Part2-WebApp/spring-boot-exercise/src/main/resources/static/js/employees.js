@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+    // After click on create button:
+    // 1) make an ajax request -> get all employees and show their name
+         // in the dropdown list that will be created by the select element
+    // 2) show the create-modal component
     $("#btn-create").click(function(){
         $.ajax({
             url:"/api/employees",
@@ -16,10 +20,18 @@ $(document).ready(function(){
         $("#modalCreateEmployee").modal("show");
     });
 
+    // After click on edit button:
+    // 1) assign the ID value (that was retrieved by the list 'allEmployees' for the specific employee
+        // and was saved to to the custom attribute 'data-employeeId') to the hidden input element
+        // of the edit form in the edit-modal component
+    // 2) make an ajax request -> get all employees and show their name
+        // in the dropdown list that will be created by the select element
+    // 3) make an ajax request -> get the specific employee according to the ID value from the first step
+        // and show the employee's name in the field 'Name' and the employee's date of hire in the field 'Date of Hire'
+        // as predefined values
     $(".btn-edit").click(function(){
         let employeeId = $(this).attr("data-employeeId");
         $("#employeeId-edit").val(employeeId);
-
         $.ajax({
             url:"/api/employees/",
             async:false
@@ -33,9 +45,6 @@ $(document).ready(function(){
                 for(let i in data){
                     const option = document.createElement("option");
                     option.innerText= data[i].empName;
-                    if(data1.empSupervisor === data[i].empId) {
-                        option.setAttribute("selected", "true");
-                    }
                     selector.append(option);
                 }
                 $("#employeeName-edit").val(data1.empName);
@@ -45,14 +54,19 @@ $(document).ready(function(){
         $("#modalEditEmployee").modal("show");
     });
 
-
+    // After click on delete button:
+    // 1) assign the ID value (that was retrieved by the list 'allEmployees' for the specific employee
+        // and was saved to to the custom attribute 'data-employeeId') to the hidden input element
+        // of the delete form in the delete-modal component
+    // 2) make an ajax request -> get the specific employee according to the ID value from the first step
+        // and append the employee's name in the span element of the delete form in the delete-modal component
     $(".btn-delete").click(function(){
         let employeeId = $(this).attr("data-employeeId");
+        $("#employeeId-delete").val(employeeId);
         $.ajax({
             url:"/api/employees/" + employeeId,
             async: false
         }).then(function(data){
-            $("#employeeId-delete").val(data.empId);
             $("#employeeName-delete").html("");
             $("#employeeName-delete").append(data.empName);
         });
