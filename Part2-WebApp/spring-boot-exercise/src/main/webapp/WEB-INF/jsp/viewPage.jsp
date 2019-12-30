@@ -1,3 +1,4 @@
+<%@include file="employeesModal.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
@@ -29,8 +30,9 @@
                 <th>Name</th>
                 <th>Date of Hire</th>
                 <th>Supervisor</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Modify</th>
+                <th>Remove</th>
+                <th>Attributes</th>
             </tr>
             </thead>
             <tbody>
@@ -60,123 +62,11 @@
                     <td>
                         <button class = "btn-delete btn-danger btn" type = "button" data-employeeId = "${employee.empId}" data-toggle="modal">Delete</button>
                     </td>
+                    <td>
+                        <button class = "btn-attributes btn-success btn" type = "button" data-employeeId = "${employee.empId}" data-toggle="modal">Attributes</button>
+                    </td>
                 </tr>
             </c:forEach>
-
-            <div id = "modalCreateEmployee" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Create Employee</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="/employees/add" method="POST">
-                            <div class="modal-body">
-
-                                <div class="form-group">
-                                    <label for = "employeeName">Name</label>
-                                    <br>
-                                    <input id = "employeeName" name = "employeeName" class = "form-control" placeholder = "Enter Name" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for = "employeeDateOfHire">Date Of Hire</label>
-                                    <br>
-                                    <input type="date" id = "employeeDateOfHire" name = "employeeDateOfHire" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for = "supervisor">Supervisor</label>
-                                    <br>
-                                    <select id = "supervisor" name = "supervisor">
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning">Create</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div id = "modalEditEmployee" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Employee</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form action="/employees/edit" method="POST">
-                            <div class="modal-body">
-
-                                <input type = "hidden" id = "employeeId-edit" name = "employeeId-edit" />
-
-                                <div class="form-group">
-                                    <label for = "employeeName-edit">Name</label>
-                                    <br>
-                                    <input id = "employeeName-edit" name = "employeeName-edit" class = "form-control" placeholder = "Enter Name" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for = "employeeDateOfHire-edit">Date Of Hire</label>
-                                    <br>
-                                    <input type="date" id = "employeeDateOfHire-edit" name = "employeeDateOfHire-edit" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for = "supervisor-edit">Supervisor</label>
-                                    <br>
-                                    <select id = "supervisor-edit" name = "supervisor-edit">
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning">Update</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div id = "modalDeleteEmployee" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete Employee</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action = "/employee/delete" method = "POST">
-                            <div class="modal-body">
-
-                                <input type = "hidden" id = "employeeId-delete" name = "employeeId">
-
-                                <p>Are you sure you want to delete employee with name: <span id = "employeeName-delete"></span> ? </p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!--Custom JS-->
-            <script src="/js/employees.js"></script>
 
             </tbody>
         </table>
@@ -184,6 +74,9 @@
     </div>
 </div>
 
+
+
+<script async src="/js/employees.js"></script>
 </body>
 
 </html>

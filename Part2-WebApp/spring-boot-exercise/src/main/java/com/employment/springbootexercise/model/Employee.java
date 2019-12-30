@@ -29,14 +29,16 @@ public class Employee implements Serializable {
     private LocalDateTime empDateOfHire;
 
     @JsonProperty
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne
+//            (cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="EMP_Supervisor")
     private Employee empSupervisor;
 
-    @OneToMany(mappedBy="empSupervisor",
-            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy="empSupervisor")
+//            ,
+//            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//                    CascadeType.DETACH, CascadeType.REFRESH})
     private List<Employee> employeesToSupervise;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -48,6 +50,13 @@ public class Employee implements Serializable {
     private List<Attribute> attributes;
 
     public Employee() {
+    }
+
+    @PreRemove
+    private void preRemove() {
+        for (Employee e : employeesToSupervise) {
+            e.setEmpSupervisor(null);
+        }
     }
 
     public UUID getEmpId() {

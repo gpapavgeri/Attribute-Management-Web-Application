@@ -73,4 +73,63 @@ $(document).ready(function(){
         $("#modalDeleteEmployee").modal("show");
     });
 
+    // After click on attributes button:
+    // 1) get the ID value (that was retrieved by the list 'allEmployees' for the specific employee
+    // and was saved to to the custom attribute 'data-employeeId') and assing it to a variable (employeeId)
+    // 2) make an ajax request -> get the specific employee according to the ID value from the first step
+    // and retrieve the employee's list of attributes
+    // 3) for each attribute append the corresponding table row with the attribute's fields (name-value-edit-delete)
+    $(".btn-attributes").click(function(){
+        let employeeId = $(this).attr("data-employeeId");
+        $.ajax({
+            url:"/api/employees/" + employeeId,
+            async: false
+        }).then(function(data){
+            $("#attrTable").find("tr:gt(1)").remove();
+            const array = data.attributes;
+                for (let i in array) {
+                    $('#attrTable > tbody:last-child').append('<tr>\n' +
+                        '                            <td>\n' +
+                        '                                <p>' + array[i].attrName + '</p>\n' +
+                        '                            </td>\n' +
+                        '                            <td>\n' +
+                        '                                <p>' + array[i].attrValue + '</p>\n' +
+                        '                            </td>\n' +
+                        '                            <td>\n' +
+                        '                                <button class = "btn-attrEdit btn-warning btn" data-attributeId = ' + array[i].attrId + ' type = "button" data-toggle="modal" >Edit</button>\n' +
+                        '                            </td>\n' +
+                        '                            <td>\n' +
+                        '                                <button class = "btn-delete btn-danger btn" data-attributeId = ' + array[i].attrId + ' type = "button" data-toggle="modal">Delete</button>\n' +
+                        '                            </td>\n' +
+                        '                        </tr>');
+                }
+            });
+        $("#modalAttributes").modal("show");
+    });
+        // After click on attribute's edit button:
+        // 1) assign the attribute ID value (that was retrieved by the list 'attributes' for the specific employee
+        // and was saved to to the custom attribute 'data-attributeId') to the hidden input element
+        // of the edit form in the edit-modal component
+        // 2) make an ajax request -> get the specific attribute according to the ID value from the first step
+        // and show the attribute's name in the field 'Name' and the attribute's value in the field 'Value'
+        // as predefined values
+
+
+    $( "#modalAttributes" ).on('shown', function(){
+        $('.btn-attrEdit').click(function () {
+            let attributeId = $(this).data('attributeId');
+            // let attributeId = $(this).attr("data-attributeId");
+            $('#attributeId-edit').val(attributeId);
+            $.ajax({
+                url: '/api/attributes/' + attributeId,
+                async: false
+            }).then(function (data) {
+                $('#attributeName-edit').val(data.attrName);
+                $('#attributeValue-edit').val(data.attrValue);
+            });
+            $('#modalEditAttribute').modal('show');
+        });
+    });
+
+
 });
