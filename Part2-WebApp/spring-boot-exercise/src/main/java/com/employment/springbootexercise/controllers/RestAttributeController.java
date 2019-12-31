@@ -50,7 +50,7 @@ public class RestAttributeController {
         List<Employee> empList = attribute.getEmployees();
         attr.setEmployees(empList);
 
-        attrService.insertAttribute(attr);
+        attrService.updateAttribute(attr);
         return attr;
     }
 
@@ -58,10 +58,7 @@ public class RestAttributeController {
     @DeleteMapping("/attributes/{id}")
     public ResponseEntity<Attribute> deleteAttribute(@PathVariable(value="id") String id){
         UUID attrId = UUID.fromString(id);
-        Attribute attribute = attrService.getAttributeById(attrId);
-        if(attribute != null){
-            attrService.deleteAttributeById(attribute.getAttrId());
-        }
+        attrService.deleteAttributeById(attrId);
         return ResponseEntity.ok().build();
     }
 

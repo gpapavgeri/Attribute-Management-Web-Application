@@ -20,7 +20,7 @@ public class EmployeeController {
     EmployeeService empService;
 
     // Load all employees
-    @RequestMapping(value = "/employees", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/employees"}, method = RequestMethod.GET)
     public String getAllEmployees(ModelMap mm){
         List<Employee> employees = empService.getAllEmployees();
         mm.addAttribute("allEmployees", employees);
@@ -44,14 +44,6 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    // Delete employee
-    @RequestMapping(value = "/employees/delete", method = RequestMethod.POST)
-    public String deleteEmployee(@RequestParam("employeeId") String employeeId){
-        UUID empId = UUID.fromString(employeeId);
-        empService.deleteEmployeeById(empId);
-        return "redirect:/employees";
-    }
-
     // Edit employee
     @RequestMapping(value = "/employees/edit", method = RequestMethod.POST)
     public String editEmployee( @RequestParam("employeeId-edit") String employeeId,
@@ -71,6 +63,13 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    // Delete employee
+    @RequestMapping(value = "/employees/delete", method = RequestMethod.POST)
+    public String deleteEmployee(@RequestParam("employeeId") String employeeId){
+        UUID empId = UUID.fromString(employeeId);
+        empService.deleteEmployeeById(empId);
+        return "redirect:/employees";
+    }
 
     // Method to convert String of Date format in LocalDateTime
     public LocalDateTime convertStringDateToLocalDateTime(String inputDate){

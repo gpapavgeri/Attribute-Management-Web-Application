@@ -1,6 +1,5 @@
 package com.employment.springbootexercise.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,20 +29,13 @@ public class Employee implements Serializable {
 
     @JsonProperty
     @ManyToOne
-//            (cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-//            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="EMP_Supervisor")
     private Employee empSupervisor;
 
-    @OneToMany(mappedBy="empSupervisor")
-//            ,
-//            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-//                    CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy="empSupervisor", fetch = FetchType.LAZY)
     private List<Employee> employeesToSupervise;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="employeeattribute",
             joinColumns = @JoinColumn(name="EMPATTR_EmployeeID"),
             inverseJoinColumns = @JoinColumn(name="EMPATTR_AttributeID"))
@@ -104,14 +96,16 @@ public class Employee implements Serializable {
 
     public void setEmployeesToSupervise(List<Employee> employeesToSupervise) {
         this.employeesToSupervise = employeesToSupervise;
-
-
-
     }
 
     @Override
     public String toString() {
-        return
-                "empName= " + empName + '\'';
+        return "Employee{" +
+                "empName='" + empName + '\'' +
+                ", empDateOfHire=" + empDateOfHire +
+                ", empSupervisor=" + empSupervisor +
+                '}';
     }
+
+
 }

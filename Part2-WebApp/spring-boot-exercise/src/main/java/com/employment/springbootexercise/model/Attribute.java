@@ -1,6 +1,5 @@
 package com.employment.springbootexercise.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,9 +24,7 @@ public class Attribute {
     private String attrValue;
 
     @JsonProperty
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="employeeattribute",
             joinColumns = @JoinColumn(name="EMPATTR_AttributeID"),
             inverseJoinColumns = @JoinColumn(name="EMPATTR_EmployeeID"))
@@ -68,5 +65,13 @@ public class Attribute {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return "Attribute{" +
+                "attrName='" + attrName + '\'' +
+                ", attrValue='" + attrValue + '\'' +
+                '}';
     }
 }

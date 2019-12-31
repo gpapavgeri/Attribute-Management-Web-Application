@@ -9,13 +9,11 @@ public interface AttributeService {
 
     List<Attribute> getAllAttributes();
 
-    void insertAttribute(Attribute attribute);
-
-    Attribute getAttributeByName(String name);
-
     Attribute getAttributeById(UUID id);
 
-    void deleteAttributeById(UUID attrId);
+    void insertAttribute(Attribute attribute);
 
     void updateAttribute(Attribute attribute);
+
+    void deleteAttributeById(UUID attrId);
 }

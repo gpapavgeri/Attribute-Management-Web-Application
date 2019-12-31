@@ -24,33 +24,30 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public void insertAttribute(Attribute attribute) {
-        attrRepo.save(attribute);
-
-    }
-
-    @Override
-    public Attribute getAttributeByName(String name) {
-        Attribute attribute = attrRepo.findAttributeByName(name);
-        return attribute;
-    }
-
-    @Override
     public Attribute getAttributeById(UUID id) {
         Attribute attribute = attrRepo.findAttributeById(id);
         return attribute;
     }
 
     @Override
-    public void deleteAttributeById(UUID attrId) {
-        Attribute attribute = attrRepo.findAttributeById(attrId);
-        attrRepo.delete(attribute);
+    public void insertAttribute(Attribute attribute) {
+        attrRepo.save(attribute);
+
     }
 
     @Override
     public void updateAttribute(Attribute attribute) {
         if(attrRepo.existsById(attribute.getAttrId()))
-        attrRepo.save(attribute);
+            attrRepo.save(attribute);
     }
-    
+
+    @Override
+    public void deleteAttributeById(UUID attrId) {
+        Attribute attribute = attrRepo.findAttributeById(attrId);
+        if(attribute != null) {
+            attrRepo.delete(attribute);
+        }
+    }
+
+
 }

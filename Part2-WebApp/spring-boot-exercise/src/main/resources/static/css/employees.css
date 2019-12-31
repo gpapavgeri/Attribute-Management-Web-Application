@@ -31,8 +31,8 @@ P:last-child {
     padding: 20px;
 }
 
-tr {
-    height: 50px !important;
+.modal-body {
+    overflow-y: scroll;
 }
 
 

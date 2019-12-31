@@ -24,8 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void insertEmployee(Employee emp) {
-        empRepo.save(emp);
+    public Employee getEmployeeById(UUID id) {
+        Employee employee = empRepo.findEmployeeById(id);
+        return employee;
     }
 
     @Override
@@ -35,20 +36,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeById(UUID id) {
-        Employee employee = empRepo.findEmployeeById(id);
-        return employee;
-    }
-
-    @Override
-    public void deleteEmployeeById(UUID empId) {
-        Employee emp = empRepo.findEmployeeById(empId);
-        empRepo.delete(emp);
+    public void insertEmployee(Employee emp) {
+        empRepo.save(emp);
     }
 
     @Override
     public void updateEmployee(Employee emp) {
         if(empRepo.existsById(emp.getEmpId()))
-        empRepo.save(emp);
+            empRepo.save(emp);
     }
+
+    @Override
+    public void deleteEmployeeById(UUID empId) {
+        Employee emp = empRepo.findEmployeeById(empId);
+        if(emp != null) {
+            empRepo.delete(emp);
+        }
+    }
+
+
 }

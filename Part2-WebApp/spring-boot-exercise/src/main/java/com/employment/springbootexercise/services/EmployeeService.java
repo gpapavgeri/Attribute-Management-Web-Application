@@ -9,13 +9,13 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees();
 
-    void insertEmployee(Employee emp);
+    Employee getEmployeeById(UUID id);
 
     Employee getEmployeeByName(String name);
 
-    Employee getEmployeeById(UUID id);
-
-    void deleteEmployeeById(UUID empId);
+    void insertEmployee(Employee emp);
 
     void updateEmployee(Employee emp);
+
+    void deleteEmployeeById(UUID empId);
 }
