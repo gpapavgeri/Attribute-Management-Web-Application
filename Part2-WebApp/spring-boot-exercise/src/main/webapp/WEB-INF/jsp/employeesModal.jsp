@@ -19,7 +19,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
+    <!--Custom JS-->
+    <script async src="/js/employees.js"></script>
+    <script async src="/js/attributes.js"></script>
 </head>
 
 <body>
@@ -149,14 +151,26 @@
             </div>
 
             <div class="modal-body">
-                <table id="attrTable" class="table table-hover table-striped table-sm" >
+                <table id="attrTable" class="table table-hover table-sm" >
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Value</th>
+                        <th>Modify</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <tr id="btn-addAttr" data-toggle="modal">
+                        <td>
+                            <i class="fas fa-plus"></i>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -164,6 +178,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 

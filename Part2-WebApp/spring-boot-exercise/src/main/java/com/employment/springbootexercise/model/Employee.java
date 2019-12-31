@@ -32,6 +32,7 @@ public class Employee implements Serializable {
     @JoinColumn(name="EMP_Supervisor")
     private Employee empSupervisor;
 
+    @JsonProperty
     @OneToMany(mappedBy="empSupervisor", fetch = FetchType.LAZY)
     private List<Employee> employeesToSupervise;
 
@@ -82,6 +83,7 @@ public class Employee implements Serializable {
         this.empSupervisor = empSupervisor;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public List<Employee> getEmployeesToSupervise() {
         return employeesToSupervise;
     }

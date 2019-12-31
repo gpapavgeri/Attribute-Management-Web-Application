@@ -87,21 +87,34 @@ $(document).ready(function(){
             url:"/api/employees/" + employeeId,
             async: false
         }).then(function(data){
-            $("#attrTable").find("tr:gt(0)").remove();
+            $("#attrTable").find("tr:gt(1)").remove();
             const array = data.attributes;
             for (let i in array) {
                 $('#attrTable > tbody:last-child').append('<tr>\n' +
                     '                            <td>\n' +
-                    '                                <p>' + array[i].attrName + '</p>\n' +
+                    '                                <p id="attrName">' + array[i].attrName + '</p>\n' +
                     '                            </td>\n' +
                     '                            <td>\n' +
-                    '                                <p>' + array[i].attrValue + '</p>\n' +
+                    '                                <p id="attrValue">' + array[i].attrValue + '</p>\n' +
                     '                            </td>\n' +
+                    '                            <td>\n' +
+                    '                                <button class = "btn-attrEdit btn-warning btn" type = "button" data-toggle="modal" href="#modalEditAttribute">Edit</button>\n' +
+                    '                            </td>\n' +
+                    '                            <td>\n' +
+                    '                                <button class = "btn-attrDelete btn-danger btn" type = "button" data-toggle="modal" href="#modalDeleteAttribute">Delete</button>\n' +
+                    '                            </td>\n' +
+
                     '                        </tr>');
+                $('.btn-attrEdit').attr('data-attributeId', array[i].attrId);
+                $('.btn-attrDelete').attr('data-attributeId', array[i].attrId);
+                $('.btn-attrDelete').attr('data-employeeId', employeeId);
+                $('.btn-attrDelete').attr('data-employeeName', data.empName);
             }
         });
         $("#modalAttributes").modal("show");
     });
 
-
 });
+
+
+
